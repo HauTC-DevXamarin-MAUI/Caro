@@ -29,6 +29,12 @@ namespace GameCaro
 
         private Stack<OCo> stkCacNuocDaDi;
 
+        public Stack<OCo> StkCacNuocDaDi
+        {
+            get { return stkCacNuocDaDi; }
+            set { stkCacNuocDaDi = value; }
+        }
+
         public int _LuotDi;
         private bool _SanSang;
         private List<Player> playerDS;

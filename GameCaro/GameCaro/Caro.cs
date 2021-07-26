@@ -341,7 +341,34 @@ namespace GameCaro
 
         private void Caro_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Bạn có muốn thoát game không?", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel)
+            timer1.Stop();
+            if (caroChess.SanSang == true && caroChess.CheDoChoi==1 )
+            {
+                DialogResult dr = MessageBox.Show("Bạn có muốn lưu game không?","",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Warning);
+                if (dr==DialogResult.Cancel)
+                {
+                    timer1.Start();
+                    e.Cancel = true;
+                }
+                else if (dr == DialogResult.No)
+                {
+                    MenuGame frm = new MenuGame();
+                    frm.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    timer1.Stop();
+                    if (caroChess.LuuGame(grs))
+                    {
+                        //grs.Clear(pnlBoard.BackColor);
+                        MenuGame frm = new MenuGame();
+                        frm.Show();
+                        this.Hide();
+                    }
+                }
+            }
+            else if (MessageBox.Show("Bạn có muốn thoát game không?", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.Cancel)
             {
                 e.Cancel = true;
             }
@@ -366,6 +393,7 @@ namespace GameCaro
                 Mode.load_game = false;
                
             }
+            
         }
 
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
